@@ -26,4 +26,18 @@ public class Line {
 	public void draw(Canvas canvas) {
 		canvas.drawLine(start.x, start.y, end.x, end.y, mPaint);
 	}
+	
+	public PointF getStart() {
+		return start;
+	}
+	
+	public PointF getEnd() {
+		return end;
+	}
+	
+	public void reverse() {
+		PointF tmp = start;
+		start = end;
+		end = tmp;
+	}
 }
