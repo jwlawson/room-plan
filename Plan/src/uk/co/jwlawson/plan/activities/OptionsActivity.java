@@ -16,7 +16,6 @@ public class OptionsActivity extends SherlockPreferenceActivity {
 	
 	@Override
 	public void onCreate(Bundle savedInstanceState) {
-		
 	}
 	
 }

@@ -14,6 +14,5 @@ public class RoomList extends SherlockListActivity {
 	
 	@Override
 	public void onCreate(Bundle savedInstanceState) {
-		
 	}
 }

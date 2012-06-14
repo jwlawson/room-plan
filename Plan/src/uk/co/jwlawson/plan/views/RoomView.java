@@ -15,7 +15,6 @@ public class RoomView extends View {
 	
 	public RoomView(Context context) {
 		super(context);
-		// TODO Auto-generated constructor stub
 	}
 	
 }

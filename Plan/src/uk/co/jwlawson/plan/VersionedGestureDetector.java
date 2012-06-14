@@ -28,8 +28,11 @@ public abstract class VersionedGestureDetector {
 	OnGestureListener mListener;
 	
 	public static VersionedGestureDetector newInstance(Context context, OnGestureListener listener) {
+		
+		@SuppressWarnings("deprecation")
 		final int sdkVersion = Integer.parseInt(Build.VERSION.SDK);
 		VersionedGestureDetector detector = null;
+		
 		if (sdkVersion < Build.VERSION_CODES.ECLAIR) {
 			detector = new CupcakeDetector(context);
 		} else if (sdkVersion < Build.VERSION_CODES.FROYO) {

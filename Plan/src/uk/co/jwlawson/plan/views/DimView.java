@@ -15,7 +15,6 @@ public class DimView extends View {
 	
 	public DimView(Context context) {
 		super(context);
-		// TODO Auto-generated constructor stub
 	}
 	
 }

@@ -10,7 +10,7 @@ public abstract class Furniture {
 	
 	private static final String TAG = "Furniture";
 	
-	private String mName;
+	protected String mName;
 	
 	public Furniture(String name) {
 		mName = name;

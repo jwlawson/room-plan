@@ -8,4 +8,5 @@ package uk.co.jwlawson.plan.entities;
  */
 public class Room {
 	
+	private final static String TAG = "Room";
 }

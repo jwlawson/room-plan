@@ -16,7 +16,6 @@ public class RoomViewActivity extends SherlockActivity {
 	
 	@Override
 	public void onCreate(Bundle savedInstanceState) {
-		
 	}
 	
 }

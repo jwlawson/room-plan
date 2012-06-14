@@ -8,10 +8,10 @@ package uk.co.jwlawson.plan.entities;
  */
 public class Rect extends Furniture {
 	
+	private static final String TAG = "Rect";
+	
 	public Rect(String name) {
 		super(name);
 	}
-	
-	private static final String TAG = "Rect";
 	
 }
