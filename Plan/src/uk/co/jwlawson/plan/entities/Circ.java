@@ -31,6 +31,14 @@ public class Circ extends Shape {
 		if (DEBUG) Log.d(TAG, "New " + TAG + " created.");
 	}
 	
+	public float getX() {
+		return mPoint.x;
+	}
+	
+	public float getY() {
+		return mPoint.y;
+	}
+	
 	public void setPaint(Paint paint) {
 		mPaint = paint;
 	}
