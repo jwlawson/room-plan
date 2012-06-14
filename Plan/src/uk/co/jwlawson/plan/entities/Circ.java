@@ -55,5 +55,6 @@ public class Circ extends Shape {
 	@Override
 	public void draw(Canvas canvas) {
 		canvas.drawCircle(mPoint.x, mPoint.y, mRad, mPaint);
+		canvas.drawText(mName, mPoint.x, mPoint.y + (mPaint.getTextSize() * 7 / 20), mPaint);
 	}
 }

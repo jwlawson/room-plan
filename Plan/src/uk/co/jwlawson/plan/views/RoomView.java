@@ -7,6 +7,7 @@ import uk.co.jwlawson.plan.entities.Room;
 import uk.co.jwlawson.plan.entities.Shape;
 import android.content.Context;
 import android.graphics.Canvas;
+import android.util.AttributeSet;
 import android.util.Log;
 import android.view.MotionEvent;
 import android.view.View;
@@ -44,7 +45,17 @@ public class RoomView extends View {
 	private float mScaleY;
 	
 	public RoomView(Context context) {
-		super(context);
+		this(context, null, 0);
+	}
+	
+	public RoomView(Context context, AttributeSet attrs) {
+		this(context, attrs, 0);
+	}
+	
+	public RoomView(Context context, AttributeSet attrs, int defStyle) {
+		super(context, attrs, defStyle);
+		
+		mShapeList = new ArrayList<Shape>();
 		
 		mGestureDetector = VersionedGestureDetector.newInstance(context, new GestureHandler());
 		
@@ -103,7 +114,7 @@ public class RoomView extends View {
 		canvas.save();
 		canvas.scale(mScaleFactor, mScaleFactor, mScaleX, mScaleY);
 		
-		mRoom.draw(canvas);
+		if (mRoom != null) mRoom.draw(canvas);
 		
 		for (Shape item : mShapeList) {
 			item.draw(canvas);

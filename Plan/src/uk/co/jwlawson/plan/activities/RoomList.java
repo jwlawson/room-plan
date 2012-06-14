@@ -18,6 +18,7 @@ public class RoomList extends SherlockListActivity {
 	
 	@Override
 	public void onCreate(Bundle savedInstanceState) {
+		super.onCreate(savedInstanceState);
 		
 		if (DEBUG) Log.d(TAG, "New " + TAG + " created.");
 	}
