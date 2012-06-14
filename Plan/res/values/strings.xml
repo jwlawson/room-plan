@@ -3,5 +3,6 @@
 
     <string name="hello">Hello World!</string>
     <string name="app_name">Plan</string>
+    <string name="peg_view_menu_done">Done</string>
 
 </resources>

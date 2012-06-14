@@ -10,14 +10,17 @@
         android:icon="@drawable/ic_launcher"
         android:label="@string/app_name" >
         <activity android:name=".activities.RoomViewActivity" android:theme="@style/Theme.Sherlock">
+            
+        </activity>
+        <activity android:name=".activities.OptionsActivity" android:theme="@style/Theme.Sherlock"></activity>
+        <activity android:name=".activities.RoomList" android:theme="@style/Theme.Sherlock"></activity>
+        <activity android:name=".activities.PegViewActivity" android:theme="@style/Theme.Sherlock">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN"/>
                 <category android:name="android.intent.category.DEFAULT"/>
                 <category android:name="android.intent.category.LAUNCHER"/>
             </intent-filter>
         </activity>
-        <activity android:name=".activities.OptionsActivity" android:theme="@style/Theme.Sherlock"></activity>
-        <activity android:name=".activities.RoomList" android:theme="@style/Theme.Sherlock"></activity>
     </application>
 
 </manifest>
