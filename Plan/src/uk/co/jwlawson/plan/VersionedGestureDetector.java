@@ -42,7 +42,7 @@ public abstract class VersionedGestureDetector {
 			detector = new FroyoDetector(context);
 		}
 		
-		Log.d(TAG, "Created new " + detector.getClass());
+		if (DEBUG) Log.d(TAG, "Created new " + detector.getClass());
 		detector.mListener = listener;
 		
 		return detector;

@@ -1,6 +1,7 @@
 package uk.co.jwlawson.plan.activities;
 
 import android.os.Bundle;
+import android.util.Log;
 
 import com.actionbarsherlock.app.SherlockPreferenceActivity;
 
@@ -17,6 +18,7 @@ public class OptionsActivity extends SherlockPreferenceActivity {
 	
 	@Override
 	public void onCreate(Bundle savedInstanceState) {
+		if (DEBUG) Log.d(TAG, "New " + TAG + " created.");
 	}
 	
 }
