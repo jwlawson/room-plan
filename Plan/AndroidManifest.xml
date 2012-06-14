@@ -16,6 +16,8 @@
                 <category android:name="android.intent.category.LAUNCHER"/>
             </intent-filter>
         </activity>
+        <activity android:name=".activities.OptionsActivity" android:theme="@style/Theme.Sherlock"></activity>
+        <activity android:name=".activities.RoomList" android:theme="@style/Theme.Sherlock"></activity>
     </application>
 
 </manifest>
