@@ -3,8 +3,8 @@ package uk.co.jwlawson.plan.views;
 import java.util.ArrayList;
 
 import uk.co.jwlawson.plan.VersionedGestureDetector;
-import uk.co.jwlawson.plan.entities.Furniture;
 import uk.co.jwlawson.plan.entities.Room;
+import uk.co.jwlawson.plan.entities.Shape;
 import android.content.Context;
 import android.graphics.Canvas;
 import android.util.Log;
@@ -26,13 +26,21 @@ public class RoomView extends View {
 	private VersionedGestureDetector mGestureDetector;
 	
 	/** List of all furniture in this room */
-	private ArrayList<Furniture> mFurnitureList;
+	private ArrayList<Shape> mShapeList;
 	
 	/** Room that contains the furniture */
 	private Room mRoom;
 	
+	/** Index of currently selected piece of furniture */
+	private int mSelectedItem;
+	
+	/** Scale factor for drawing */
 	private float mScaleFactor;
+	
+	/** x-coordinate for centre of scaling */
 	private float mScaleX;
+	
+	/** y-coordinate for centre of scaling */
 	private float mScaleY;
 	
 	public RoomView(Context context) {
@@ -45,6 +53,14 @@ public class RoomView extends View {
 		mScaleY = 0f;
 		
 		if (DEBUG) Log.d(TAG, "New " + TAG + " created.");
+	}
+	
+	public void setRoom(Room room) {
+		mRoom = room;
+	}
+	
+	public void addShape(Shape shape) {
+		mShapeList.add(shape);
 	}
 	
 	/**
@@ -86,10 +102,12 @@ public class RoomView extends View {
 		
 		canvas.save();
 		canvas.scale(mScaleFactor, mScaleFactor, mScaleX, mScaleY);
-		// canvas.drawColor(backColour);
-		// for (int i = 0; i < mShapeList.size(); i++) {
-		// mShapeList.get(i).draw(canvas);
-		// }
+		
+		mRoom.draw(canvas);
+		
+		for (Shape item : mShapeList) {
+			item.draw(canvas);
+		}
 		canvas.restore();
 	}
 	
@@ -98,16 +116,27 @@ public class RoomView extends View {
 		return mGestureDetector.onTouchEvent(ev);
 	}
 	
+	/** Handles any touch event on this view */
 	private class GestureHandler implements VersionedGestureDetector.OnGestureListener {
 		
 		@Override
 		public void onDown(float x, float y) {
+			mSelectedItem = -1;
 			
+			for (int i = 0; i < mShapeList.size(); i++) {
+				if (mShapeList.get(i).contains(scaledX(x), scaledY(y))) {
+					mSelectedItem = i;
+					return;
+				}
+			}
 		}
 		
 		@Override
 		public void onDrag(float dx, float dy, float rawX, float rawY) {
-			
+			if (mSelectedItem >= 0 && mSelectedItem < mShapeList.size()) {
+				mShapeList.get(mSelectedItem).offset(dx / mScaleFactor, dy / mScaleFactor);
+				invalidate();
+			}
 		}
 		
 		@Override

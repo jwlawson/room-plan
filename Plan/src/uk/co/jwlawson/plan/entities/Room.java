@@ -1,5 +1,8 @@
 package uk.co.jwlawson.plan.entities;
 
+import java.util.ArrayList;
+
+import android.graphics.Canvas;
 import android.util.Log;
 
 /**
@@ -13,7 +16,15 @@ public class Room {
 	private final static String TAG = "Room";
 	private static final boolean DEBUG = false;
 	
-	public void Room() {
+	private ArrayList<Line> mLineList;
+	
+	public Room() {
 		if (DEBUG) Log.d(TAG, "New " + TAG + " created.");
+	}
+	
+	public void draw(Canvas canvas) {
+		for (Line line : mLineList) {
+			line.draw(canvas);
+		}
 	}
 }
