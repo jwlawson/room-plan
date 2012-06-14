@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android" >
+    
+    <item android:id="@+id/peg_view_menu_done" 
+        android:icon="@drawable/ic_cab_done_holo_dark" 
+        android:title="@string/peg_view_menu_done"
+        android:showAsAction="ifRoom|withText"></item>
+    
+
+</menu>
