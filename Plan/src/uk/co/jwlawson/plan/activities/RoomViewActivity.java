@@ -38,6 +38,7 @@ public class RoomViewActivity extends SherlockActivity {
 		paint.setStyle(Style.STROKE);
 		paint.setTextSize(25);
 		paint.setTextAlign(Paint.Align.CENTER);
+		paint.setAntiAlias(true);
 		mRoomView.addShape(new Circ(0, 0, 100, paint, "one"));
 		mRoomView.addShape(new Circ(100, 150, 50, paint, "two"));
 		
@@ -59,11 +60,9 @@ public class RoomViewActivity extends SherlockActivity {
 	
 	@Override
 	public boolean onOptionsItemSelected(MenuItem item) {
-		if (DEBUG) Log.d(TAG, "Menu selection: " + item.getItemId());
-		switch (item.getItemId()) {
-		case android.R.id.home:
-			
-		}
+		if (DEBUG) Log.d(TAG, "Menu selection: " + item.getTitle());
+		/* android.R.id.home: is the ItemId for the actionbar home button. */
+		
 		return false;
 	}
 	
