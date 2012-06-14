@@ -1,6 +1,7 @@
 package uk.co.jwlawson.plan.activities;
 
 import android.os.Bundle;
+import android.util.Log;
 
 import com.actionbarsherlock.app.SherlockListActivity;
 
@@ -12,7 +13,12 @@ import com.actionbarsherlock.app.SherlockListActivity;
  */
 public class RoomList extends SherlockListActivity {
 	
+	private static final String TAG = "RoomListActivity";
+	private static final boolean DEBUG = false;
+	
 	@Override
 	public void onCreate(Bundle savedInstanceState) {
+		
+		if (DEBUG) Log.d(TAG, "New " + TAG + " created.");
 	}
 }

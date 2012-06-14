@@ -13,6 +13,7 @@ import com.actionbarsherlock.app.SherlockPreferenceActivity;
 public class OptionsActivity extends SherlockPreferenceActivity {
 	
 	private static final String TAG = "OptionsActivity";
+	private static final boolean DEBUG = false;
 	
 	@Override
 	public void onCreate(Bundle savedInstanceState) {

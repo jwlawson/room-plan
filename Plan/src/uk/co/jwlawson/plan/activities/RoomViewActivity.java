@@ -1,6 +1,7 @@
 package uk.co.jwlawson.plan.activities;
 
 import android.os.Bundle;
+import android.util.Log;
 
 import com.actionbarsherlock.app.SherlockActivity;
 
@@ -13,9 +14,12 @@ import com.actionbarsherlock.app.SherlockActivity;
 public class RoomViewActivity extends SherlockActivity {
 	
 	private static final String TAG = "RoomViewActivity";
+	private static final boolean DEBUG = false;
 	
 	@Override
 	public void onCreate(Bundle savedInstanceState) {
+		
+		if (DEBUG) Log.d(TAG, "New " + TAG + " created.");
 	}
 	
 }

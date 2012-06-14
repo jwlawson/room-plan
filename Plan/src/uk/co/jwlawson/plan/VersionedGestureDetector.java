@@ -24,6 +24,7 @@ import android.view.ScaleGestureDetector;
 
 public abstract class VersionedGestureDetector {
 	private static final String TAG = "VersionedGestureDetector";
+	private static final boolean DEBUG = false;
 	
 	OnGestureListener mListener;
 	
