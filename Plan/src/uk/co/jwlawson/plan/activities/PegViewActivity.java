@@ -84,7 +84,7 @@ public class PegViewActivity extends SherlockActivity {
 
 		PointF initPoint = l1.getStart();
 		pointList.add(initPoint);
-		Log.d(TAG, l1.toString());
+		if (DEBUG) Log.d(TAG, l1.toString());
 		PointF start = l1.getEnd();
 		pointList.add(start);
 
@@ -97,7 +97,7 @@ public class PegViewActivity extends SherlockActivity {
 			for (Line line : lineList) {
 
 				if (line.getStart().equals(start.x, start.y)) {
-					Log.d(TAG, line.toString());
+					if (DEBUG) Log.d(TAG, line.toString());
 					pointList.add(line.getEnd());
 					start = line.getEnd();
 					lineList.remove(line);
@@ -105,7 +105,7 @@ public class PegViewActivity extends SherlockActivity {
 					break;
 
 				} else if (line.getEnd().equals(start.x, start.y)) {
-					Log.d(TAG, line.toString());
+					if (DEBUG) Log.d(TAG, line.toString());
 					pointList.add(line.getStart());
 					start = line.getStart();
 					lineList.remove(line);
