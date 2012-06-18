@@ -10,6 +10,7 @@
  *******************************************************************************/
 package uk.co.jwlawson.plan.activities;
 
+import android.content.Intent;
 import android.graphics.PointF;
 import android.os.Bundle;
 import android.util.Log;
@@ -70,6 +71,8 @@ public class PegViewActivity extends SherlockActivity {
 	}
 
 	private void done() {
+
+		// Make a copy of the list of lines in the room.
 		ArrayList<Line> lineList = new ArrayList<Line>(mPegView.getLineList());
 
 		if (lineList.isEmpty()) {
@@ -77,6 +80,12 @@ public class PegViewActivity extends SherlockActivity {
 			return;
 		}
 
+		/*
+		 * Build a list of the vertices that make up the room. If the room does
+		 * not form a complete loop, an error toast will pop up.
+		 * Once a list is built, iterate over the list to remove any unneeded
+		 * points.
+		 */
 		ArrayList<PointF> pointList = new ArrayList<PointF>();
 
 		Line l1 = lineList.get(0);
@@ -123,6 +132,31 @@ public class PegViewActivity extends SherlockActivity {
 			}
 		}
 
+		ArrayList<PointF> removeList = new ArrayList<PointF>();
+
+		/*
+		 * Check if a point is in the line joining points on either side.
+		 * given points (a,b) and (c,d) with point (x,y) on their line, must
+		 * have
+		 * t = (x-a)/(c-a) = (y-b)/(d-b) => (x-a)(d-b) == (y-b)(c-a)
+		 */
+		for (int i = 1; i < pointList.size() - 1; i++) {
+			PointF a = pointList.get(i - 1);
+			PointF x = pointList.get(i);
+			PointF c = pointList.get(i + 1);
+			if ((x.x - a.x) * (c.y - a.y) == (x.y - a.y) * (c.x - a.x)) {
+				removeList.add(x);
+			}
+		}
+
+		for (PointF point : removeList) {
+			pointList.remove(point);
+		}
+
+		Intent intent = new Intent(this, DimViewActivity.class);
+		intent.putParcelableArrayListExtra("point_list", pointList);
+
+		startActivity(intent);
 	}
 
 	private void reset() {
