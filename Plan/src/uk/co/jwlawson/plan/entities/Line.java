@@ -33,6 +33,12 @@ public class Line {
 		if (DEBUG)
 			Log.d(TAG, "New " + TAG + " created.");
 	}
+	
+	public Line(PointF start, PointF end, Paint paint){
+		this.start = start;
+		this.end = end;
+		mPaint = paint;
+	}
 
 	@Override
 	public String toString() {
