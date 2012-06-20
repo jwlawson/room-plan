@@ -30,11 +30,10 @@ public class Line {
 
 		mPaint = paint;
 
-		if (DEBUG)
-			Log.d(TAG, "New " + TAG + " created.");
+		if (DEBUG) Log.d(TAG, "New " + TAG + " created.");
 	}
-	
-	public Line(PointF start, PointF end, Paint paint){
+
+	public Line(PointF start, PointF end, Paint paint) {
 		this.start = start;
 		this.end = end;
 		mPaint = paint;

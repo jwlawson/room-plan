@@ -12,12 +12,17 @@ package uk.co.jwlawson.plan.views;
 
 import android.content.Context;
 import android.graphics.Canvas;
+import android.graphics.Color;
+import android.graphics.Paint;
+import android.graphics.Paint.Style;
 import android.graphics.PointF;
+import android.util.AttributeSet;
 import android.util.Log;
 import android.view.MotionEvent;
 import android.view.View;
 
 import uk.co.jwlawson.plan.VersionedGestureDetector;
+import uk.co.jwlawson.plan.entities.Line;
 
 import java.util.ArrayList;
 
@@ -30,10 +35,14 @@ import java.util.ArrayList;
 public class DimView extends View {
 
 	private static final String TAG = "DimView";
-	private static final boolean DEBUG = false;
+	private static final boolean DEBUG = true;
 
 	/** ArrayList of the points that make up the rough shape of the room */
 	private ArrayList<PointF> mPointList;
+
+	private final ArrayList<Line> mLineList;
+
+	private final Paint mLinePaint;
 
 	/** GestureDetector to handle all touch events */
 	private final VersionedGestureDetector mDetector;
@@ -48,14 +57,46 @@ public class DimView extends View {
 	private float mScaleY;
 
 	public DimView(Context context) {
-		super(context);
+		this(context, null, 0);
+	}
+
+	public DimView(Context context, AttributeSet attrs) {
+		this(context, attrs, 0);
+	}
+
+	public DimView(Context context, AttributeSet attrs, int defStyle) {
+		super(context, attrs, defStyle);
+
+		mLinePaint = new Paint();
+		mLinePaint.setColor(Color.BLUE);
+		mLinePaint.setAntiAlias(true);
+		mLinePaint.setStrokeWidth(2);
+		mLinePaint.setStyle(Style.STROKE);
+
+		mPointList = new ArrayList<PointF>();
+		mLineList = new ArrayList<Line>();
 
 		mDetector = VersionedGestureDetector.newInstance(context, new GestureHandler());
 		if (DEBUG) Log.d(TAG, "New " + TAG + " created.");
 	}
 
 	public void setPoints(ArrayList<PointF> list) {
+		if (DEBUG) Log.d(TAG, "Points set");
+
 		mPointList = list;
+		for (int i = 0; i < mPointList.size(); i++) {
+			PointF start = mPointList.get(i);
+			PointF end;
+			if (i == mPointList.size() - 1) {
+				end = mPointList.get(0);
+			} else {
+				end = mPointList.get(i + 1);
+			}
+
+			Line line = new Line(start, end, mLinePaint);
+			if (DEBUG) Log.d(TAG, "New line added " + line.toString());
+			mLineList.add(line);
+		}
 	}
 
 	/**
@@ -87,7 +128,10 @@ public class DimView extends View {
 		canvas.save();
 		canvas.scale(mScaleFactor, mScaleFactor, mScaleX, mScaleY);
 		// Draw stuff
-
+		canvas.drawColor(Color.RED);
+		for (Line line : mLineList) {
+			line.draw(canvas);
+		}
 		canvas.restore();
 	}
 

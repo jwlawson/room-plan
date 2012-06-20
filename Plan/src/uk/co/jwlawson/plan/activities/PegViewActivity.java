@@ -10,6 +10,11 @@
  *******************************************************************************/
 package uk.co.jwlawson.plan.activities;
 
+import java.util.ArrayList;
+
+import uk.co.jwlawson.plan.R;
+import uk.co.jwlawson.plan.entities.Line;
+import uk.co.jwlawson.plan.views.PegView;
 import android.content.Intent;
 import android.graphics.PointF;
 import android.os.Bundle;
@@ -21,38 +26,32 @@ import com.actionbarsherlock.view.Menu;
 import com.actionbarsherlock.view.MenuInflater;
 import com.actionbarsherlock.view.MenuItem;
 
-import uk.co.jwlawson.plan.R;
-import uk.co.jwlawson.plan.entities.Line;
-import uk.co.jwlawson.plan.views.PegView;
-
-import java.util.ArrayList;
-
 /** Activity to show and manage the peg board room creation. */
 public class PegViewActivity extends SherlockActivity {
-
+	
 	private static final String TAG = "PegViewActivity";
 	private static final boolean DEBUG = true;
-
+	
 	private PegView mPegView;
-
+	
 	@Override
 	public void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
-
+		
 		setContentView(R.layout.peg_view_layout);
-
+		
 		mPegView = (PegView) findViewById(R.id.pegView1);
 	}
-
+	
 	@Override
 	public boolean onCreateOptionsMenu(Menu menu) {
 		MenuInflater inf = getSupportMenuInflater();
 		inf.inflate(R.menu.peg_view_act_menu, menu);
 		if (DEBUG) Log.d(TAG, "Menu inflated");
 		return true;
-
+		
 	}
-
+	
 	@Override
 	public boolean onOptionsItemSelected(MenuItem item) {
 		switch (item.getItemId()) {
@@ -69,17 +68,17 @@ public class PegViewActivity extends SherlockActivity {
 		}
 		return true;
 	}
-
+	
 	private void done() {
-
+		
 		// Make a copy of the list of lines in the room.
 		ArrayList<Line> lineList = new ArrayList<Line>(mPegView.getLineList());
-
+		
 		if (lineList.isEmpty()) {
 			Toast.makeText(getApplicationContext(), "No walls added", Toast.LENGTH_SHORT).show();
 			return;
 		}
-
+		
 		/*
 		 * Build a list of the vertices that make up the room. If the room does
 		 * not form a complete loop, an error toast will pop up.
@@ -87,24 +86,24 @@ public class PegViewActivity extends SherlockActivity {
 		 * points.
 		 */
 		ArrayList<PointF> pointList = new ArrayList<PointF>();
-
+		
 		Line l1 = lineList.get(0);
 		lineList.remove(l1);
-
+		
 		PointF initPoint = l1.getStart();
 		pointList.add(initPoint);
 		if (DEBUG) Log.d(TAG, l1.toString());
 		PointF start = l1.getEnd();
 		pointList.add(start);
-
+		
 		boolean flag = false;
-
+		
 		while (!initPoint.equals(start.x, start.y)) {
-
+			
 			flag = false;
-
+			
 			for (Line line : lineList) {
-
+				
 				if (line.getStart().equals(start.x, start.y)) {
 					if (DEBUG) Log.d(TAG, line.toString());
 					pointList.add(line.getEnd());
@@ -112,7 +111,7 @@ public class PegViewActivity extends SherlockActivity {
 					lineList.remove(line);
 					flag = true;
 					break;
-
+					
 				} else if (line.getEnd().equals(start.x, start.y)) {
 					if (DEBUG) Log.d(TAG, line.toString());
 					pointList.add(line.getStart());
@@ -120,7 +119,7 @@ public class PegViewActivity extends SherlockActivity {
 					lineList.remove(line);
 					flag = true;
 					break;
-
+					
 				}
 			}
 			// No match found. Error!
@@ -131,9 +130,9 @@ public class PegViewActivity extends SherlockActivity {
 				lineList.remove(start);
 			}
 		}
-
+		
 		ArrayList<PointF> removeList = new ArrayList<PointF>();
-
+		
 		/*
 		 * Check if a point is in the line joining points on either side.
 		 * given points (a,b) and (c,d) with point (x,y) on their line, must
@@ -148,17 +147,27 @@ public class PegViewActivity extends SherlockActivity {
 				removeList.add(x);
 			}
 		}
-
+		
 		for (PointF point : removeList) {
 			pointList.remove(point);
 		}
-
+		
+		// pointList contains starting point at both start and end
+		pointList.remove(pointList.size() - 1);
+		
+		if (DEBUG) {
+			Log.d(TAG, "Starting DimViewActivity with following points");
+			for (PointF point : pointList) {
+				Log.d(TAG, point.toString());
+			}
+		}
+		
 		Intent intent = new Intent(this, DimViewActivity.class);
 		intent.putParcelableArrayListExtra("point_list", pointList);
-
+		
 		startActivity(intent);
 	}
-
+	
 	private void reset() {
 		mPegView.reset();
 	}

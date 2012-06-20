@@ -26,8 +26,8 @@ public class Circ extends Shape {
 	private static final String TAG = "Circ";
 	private static final boolean DEBUG = false;
 	
-	private PointF mPoint;
-	private float mRad;
+	private final PointF mPoint;
+	private final float mRad;
 	
 	private Paint mPaint;
 	
@@ -49,10 +49,12 @@ public class Circ extends Shape {
 		return mPoint.y;
 	}
 	
+	@Override
 	public void setPaint(Paint paint) {
 		mPaint = paint;
 	}
 	
+	@Override
 	public void setColour(int colour) {
 		mPaint.setColor(colour);
 	}
